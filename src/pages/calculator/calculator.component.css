@@ -1,0 +1,25 @@
+.inline-field {
+    padding-right: 15px;
+    width: 40%
+}
+.inline-field-fixed {
+    width: 150px;
+}
+.inline-group {
+    display: flex;
+}
+.left-75 {
+    display: inline;
+    width: 75%;
+}
+.right-25 {
+    display: inline;
+    margin: 15px;
+    width: 25%;
+}
+
+.math-block {
+    color: rgb(34, 34, 34);
+    border-bottom: 2px solid grey;
+    padding-bottom: 15px;
+}

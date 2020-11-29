@@ -1,0 +1,126 @@
+
+<mat-vertical-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="volumeFormGroup">
+      <form [formGroup]="volumeFormGroup">
+        <ng-template matStepLabel>Dimensions of your Structure</ng-template>
+        <div class="inline-group">
+          <mat-form-field class=inline-field>
+            <mat-label>Area</mat-label>
+            <input matInput type=number formControlName="area">
+          </mat-form-field>
+          <mat-form-field class=inline-field-fixed>
+            <mat-label>Area Type</mat-label>
+            <mat-select formControlName="areaType">
+              <mat-option *ngFor="let area of areaTypes" value="{{area}}">{{area}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="inline-group">
+          <mat-form-field class=inline-field>
+            <mat-label>Volume</mat-label>
+            <input matInput type=number formControlName="volume">
+          </mat-form-field>
+          <mat-form-field class=inline-field-fixed>
+            <mat-label>Volume Type</mat-label>
+            <mat-select formControlName="volumeType">
+              <mat-option *ngFor="let volume of volumeTypes" value="{{volume}}">{{volume}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        The volume and area are used to calculate load requirements for the climate battery system.
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="fanFormGroup">
+      <form [formGroup]="fanFormGroup">
+        <ng-template matStepLabel>Choose Fans Requirements</ng-template>
+        <div class=inline-group>
+          <div class=left-75>
+            <mat-form-field class=inline-field>
+              <mat-label>Fans</mat-label>
+              <mat-hint>This is the # of climate batteries you have.
+                If you increase this you double the price of your system.</mat-hint>
+              <input matInput type=number formControlName="fans">
+            </mat-form-field>
+            <mat-form-field class=inline-field>
+              <mat-label>Air exchanges per hour</mat-label>
+              <mat-hint>Recommended number is 5. This affects how many times all air 
+                will go through the GAHT per hour</mat-hint>
+              <input matInput type=number formControlName="exchanges">
+            </mat-form-field>
+            <p>
+              Now you decide how many and how big the fans are going to be to move all the air
+              in the greenhouse underground at least 5 times per hour when the sun is shining. 
+              <br/><br/>
+              Initial low end Design Numbers: at least 5 air exchanges per hour (filled in for you) 
+              and at least 2-4 feet per sec air speed in the Heat Exchange Tubing. 
+              These initial suggestions have been shown to provide <b>at least 11 months</b> of frost
+              free Mediterranean climate in high altitude sunny Colorado AG Zone 4 with winterized
+              solar heated greenhouses. Play around with the Number of Fans and the Fan CFM to get
+              these parameters. Field trials indicate increasing energy transfers with increasing
+              exchanges and air tubing speeds - up to 4 times more air exchanges has been trialed
+              with favorable results.
+              <br/><br/>
+              <b>Recommendation:</b> Get an inline fan with minimum of {{ this.getCFMRequired() }}CFM. It's ok to get a larger one as long as
+              you have a variable speed controller for the fan.
+            </p>
+          </div>
+          <div class=right-25>
+            <div class=math-block [appMath]=latexCalculators.cfm></div>
+          </div>
+        </div>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="fanFormGroup">
+      <form [formGroup]="fanFormGroup">
+        <ng-template matStepLabel>Heat Exchange Tubing Requirements</ng-template>
+        <div class=inline-group>
+          <div class=left-75>
+            <mat-form-field class=inline-field>
+              <mat-label>Fans</mat-label>
+              <mat-hint>This is the # of climate batteries you have.
+                If you increase this you double the price of your system.</mat-hint>
+              <input matInput type=number formControlName="fans">
+            </mat-form-field>
+            <mat-form-field class=inline-field>
+              <mat-label>Air exchanges per hour</mat-label>
+              <mat-hint>Recommended number is 5. This affects how many times all air 
+                will go through the GAHT per hour</mat-hint>
+              <input matInput type=number formControlName="exchanges">
+            </mat-form-field>
+            <p>
+              All documentation recommends doing heat exchange tubing with 
+              <a href="https://www.homedepot.com/s/abs%2520perforated%2520pipe?NCNI-5">ABS perforated pipes</a> w/socks. Perforated pipes
+              purpose are because as humid air goes through the heat exchange system, water will condense to the surrounding pipes. The
+              water must escape through the perforated holes. The sock is to protect the pipe from getting sediment and dirt from flowing
+              into the pipe and causing an obstruction. 
+              <br/><br/>
+              <b>Recommendation:</b> Get an inline fan with minimum of {{ this.getCFMRequired() }}CFM. It's ok to get a larger one as long as
+              you have a variable speed controller for the fan.
+            </p>
+          </div>
+          <div class=right-25>
+            <div class=math-block [appMath]=latexCalculators.cfm></div>
+          </div>
+        </div>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
